@@ -31,6 +31,10 @@ Osci-> O
 
 P = 2;
 Can't create a valid expression with P = 2, all numbers are described by P = 0 or P = 1
+Textual proof:
+In base 2, a number is either P0, which means it is a digit, or it is P1, which means it is either Osca or Osci (Since a number cannot start with a zero), which results in P0.
+Osca and Osci define all numbers greater than P0.
+Therefore, we have defined all possible numbers in base 2 using P0 and P1.
 """
 # B2 P max = 1
 

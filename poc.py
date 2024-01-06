@@ -1,5 +1,6 @@
 import nltk
 
+# TODO : check if validate all the cases
 # Define a grammar for base 2 number system
 grammar_b2 = """
 S -> Z | O | O S
@@ -7,20 +8,31 @@ Z -> "0"
 O -> "1"
 """
 
-# Define the grammar for Pf in base 2 (Pf = {0,1} = B2)
-grammar_b2_p = grammar_b2 + """
+# sca : S contains Z -> XMS = Z (multiplicative annihilator) [S contains Z]
+# sci : S only O -> XMS = O (multiplicative identity) [S is only O]
+#? S contains only X -> XMS = X ???
+grammar_mami = """
+sca -> O | O S
+sci -> Z | O S | T S
+"""
+
+# Define the grammar for Pf in base 2 (Pf = {0,1} = B2 (P = 0))
+grammar_b2_p = grammar_b2 + grammar_mami + """
 M -> "*"
 
-Cases for P:
-P = 0; Pf = 0
-ZMS -> Z
+Cases for P -> P-1:
+P = 0;
+Z -> Z
+O -> O
 
-P = 1; Pf = 0
-OMS -> Z if S contains at least one Z
+P = 1;
+Osca -> Z
+Osci-> O
 
-P = 1; Pf = 1
-OMS -> O if S is only O
+P = 2;
+Can't create a valid expression with P = 2, all numbers are described by P = 0 or P = 1
 """
+# B2 P max = 1
 
 # Define the grammar for base 3 number system
 grammar_b3 = """
@@ -30,28 +42,27 @@ O -> "1"
 T -> "2"
 """
 
-# Define the grammar for Pf in base 3 (Pf = {0,1,2} = B3)
-grammar_b3_p = grammar_b3 + """
+# Define the grammar for Pf in base 3 (Pf = {0,1,2} = B3 (P = 0))
+grammar_b3_p = grammar_b3 + grammar_mami + """
 M -> "*"
 
-Cases for P:
-P = 0; Pf = 0
-ZMS -> Z
+Cases for P (Numbers -> Pf [if condition]):
 
-P = 1; Pf = 0
-OMS -> Z if S contains at least one Z
+P = 0; 
+Z -> Z
+O -> O
+T -> T
 
-P = 1; Pf = 1
-OMS -> O if S is only O
+P = 1;
+SZ -> Z
+Osca -> Z
+Tsca -> Z
+Osci -> O
+Ssci -> T
 
-P = 2; Pf = 0
-TMS -> Z if S contains at least one Z
+P = 2;
+TTsci -> Osci
 
-P = 2; Pf = 1
-TMS -> O if S is only O
-
-P = 2; Pf = 2  # This is the only case where Pf = P, proving that B3 is not a Pf
-TMS -> T if S is only T ??
 """
 
 grammar = nltk.CFG.fromstring(grammar_b2)

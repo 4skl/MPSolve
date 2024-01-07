@@ -21,6 +21,7 @@ grammar_b2_p = grammar_b2 + grammar_mami + """
 M -> "*"
 
 Cases for P -> P-1:
+
 P = 0;
 Z -> Z
 O -> O
@@ -36,7 +37,7 @@ In base 2, a number is either P0, which means it is a digit, or it is P1, which 
 Osca and Osci define all numbers greater than P0.
 Therefore, we have defined all possible numbers in base 2 using P0 and P1.
 """
-# B2 P max = 1
+# B2 P max = 2
 
 # Define the grammar for base 3 number system
 grammar_b3 = """
@@ -50,7 +51,7 @@ T -> "2"
 grammar_b3_p = grammar_b3 + grammar_mami + """
 M -> "*"
 
-Cases for P (Numbers -> Pf [if condition]):
+Cases for P -> P-1:
 
 P = 0; 
 Z -> Z
@@ -58,15 +59,48 @@ O -> O
 T -> T
 
 P = 1;
-SZ -> Z
 Osca -> Z
 Tsca -> Z
 Osci -> O
-Ssci -> T
+Tsci -> T
+sciTsci -> T
 
 P = 2;
-TTsci -> Osci
+TTsci -> OO
+TTTTsci -> OTO
+sciTTTTsci -> OTO
+None -> OT (Nothing gives OT cause OT is a prime number bigger than 2, the biggest digit in base 3)
+None -> TO (Nothing gives TO cause TO is a prime number bigger than 2, the biggest digit in base 3)
 
+P = 3;
+TTTsci -> TT
+sciTTTsci -> TT
+
+P = 4;
+Note :
+A number described in P-1 can't be described in P, else this would means that P-1 = P which is a contradiction.
+if we can't find P = 4, this means that every number in base 3 is defined by P = 0, P = 1, P = 2 or P = 3.
+And that we can't find a prime decomposition of a number described by P = 2 or P = 3 that don't contains a prime bigger than 2.
+
+"""
+# B3 P max = 4
+
+"""
+Yes, I guess that I should be able to derive a rule based on `A number described in P-1 can't be described in P, else this would means that P-1 = P which is a contradiction.` to prove that there isn't any number in P = 4 and that all numbers are defined by lower P ?
+
+GitHub Copilot
+
+Yes, you can derive a rule based on the fact that the multiplicative persistence (P) of a number in base 3 is at most 3. This is because the maximum product of digits you can get in base 3 is 2 * 2 * 2 = 8, which is 22 in base 3 and has a multiplicative persistence of 2.
+
+To prove that there are no numbers with a multiplicative persistence of 4 or higher, you would need to show that there are no combinations of digits that, when multiplied together, result in a number with a multiplicative persistence of 3 or higher.
+
+Here's a possible approach:
+
+Assume for contradiction that there is a number with a multiplicative persistence of 4.
+This number must contain at least four 2s, because 2 * 2 * 2 * 2 = 16 is the only multiplication of four digits that results in a number with a multiplicative persistence of 3.
+But 16 is 112 in base 3, which has a multiplicative persistence of 2, not 3.
+Therefore, there are no numbers with a multiplicative persistence of 4 or higher.
+This proves that all numbers in base 3 are defined by P = 0, P = 1, P = 2, or P = 3.
 """
 
 grammar = nltk.CFG.fromstring(grammar_b2)

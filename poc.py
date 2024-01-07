@@ -81,6 +81,14 @@ Note :
 A number described in P-1 can't be described in P, else this would means that P-1 = P which is a contradiction.
 if we can't find P = 4, this means that every number in base 3 is defined by P = 0, P = 1, P = 2 or P = 3.
 And that we can't find a prime decomposition of a number described by P = 2 or P = 3 that don't contains a prime bigger than 2.
+Proof :
+Assume that we can find a number described by P = 4, this means that we can find a prime decomposition of this number that don't contains a prime bigger than 2.
+Therefore, we can find a prime decomposition of a number described by P = 2 or P = 3 that don't contains a prime bigger than 2.
+If the hypothesis is true, then we can 
+
+Textual proof:
+In base 3, a number is either P0, which means it is a digit, or it is P1, which means it is either Osca, Tsca, Osci, Tsci, sciTsci, which results in P0 or P1.
+This cover all numbers in 
 
 """
 # B3 P max = 4

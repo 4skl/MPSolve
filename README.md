@@ -50,6 +50,11 @@ Osca and Osci define all numbers greater than P0.
 Therefore, we have defined all possible numbers in base 2 using P0 and P1.
 ```
 
+### Base 3
+
+Work in progress, I don't know if the proof is valid yet, still don't understand it fully.
+https://g.co/bard/share/8266b324a4da
+
 ### Other bases
 
 TODO : Make a construction method for base 2 and then generalize it to other bases or prove that it is not possible.

@@ -10,7 +10,6 @@ O -> "1"
 
 # sca : S contains Z -> XMS = Z (multiplicative annihilator) [S contains Z]
 # sci : S only O -> XMS = O (multiplicative identity) [S is only O]
-#? S contains only X -> XMS = X ???
 grammar_mami = """
 sca -> O | O S
 sci -> Z | O S | T S
@@ -47,6 +46,13 @@ O -> "1"
 T -> "2"
 """
 
+# sevent : S contains an even number of T [S contains an even number of T]
+# oddt : S contains an odd number of T (2**(2n) = 4**n = 2 mod 3; check https://g.co/bard/share/971470c8b88d) [S contains an odd number of T]
+grammar_mami_extended = grammar_mami + """
+event -> TT | TT sevent | T oddt
+oddt -> T | TT oddt | T sevent
+"""
+
 # Define the grammar for Pf in base 3 (Pf = {0,1,2} = B3 (P = 0))
 grammar_b3_p = grammar_b3 + grammar_mami + """
 M -> "*"
@@ -62,8 +68,8 @@ P = 1;
 Osca -> Z
 Tsca -> Z
 Osci -> O
-Tsci -> T
-sciTsci -> T
+soddtsci -> T
+scisoddtsci -> T
 
 P = 2;
 TTsci -> OO
@@ -73,10 +79,14 @@ None -> OT (Nothing gives OT cause OT is a prime number bigger than 2, the bigge
 None -> TO (Nothing gives TO cause TO is a prime number bigger than 2, the biggest digit in base 3)
 
 P = 3;
-TTTsci -> TT
+TTTsci -> TT (! contradict soddtsci -> T; the problem is that we don't take the mod result of the multiplication of the digits)
 sciTTTsci -> TT
 
 P = 4;
+Can't create a valid expression with P = 4, all numbers are described by P = 0, P = 1, P = 2 or P = 3
+
+All numbers containing digits 0 and 1 only as defined by P = 0 and P = 1 of base 2 are a subset of base 3 defined by P = 0 and P = 1.
+We added T and Tsci to P = 1
 Note :
 A number described in P-1 can't be described in P, else this would means that P-1 = P which is a contradiction.
 if we can't find P = 4, this means that every number in base 3 is defined by P = 0, P = 1, P = 2 or P = 3.
